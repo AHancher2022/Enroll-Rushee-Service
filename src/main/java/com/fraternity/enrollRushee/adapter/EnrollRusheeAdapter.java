@@ -1,5 +1,33 @@
 package com.fraternity.enrollRushee.adapter;
 
-public class EnrollRusheeAdapter {
+import java.util.List;
+
+import org.springframework.http.ResponseEntity;
+import org.springframework.stereotype.Controller;
+
+import com.enrollRushee.api.EnrollRusheeApi;
+import com.enrollRushee.api.model.EnrollRusheeBody;
+import com.enrollRushee.api.model.EnrollRusheeResponse;
+
+/*
+ * The purpose of this class is to implement the first part of the API which
+ * takes in the rushee and enrolls him to the database.
+ */
+
+@Controller
+public class EnrollRusheeAdapter implements EnrollRusheeApi {
+	
+	
+	/**
+	 * Take in the request and pass it on through to the database to enroll the customer
+	 */
+	
+	@Override
+	public ResponseEntity<List<EnrollRusheeResponse>> enrollRusheePost(String firstName, String lastName, EnrollRusheeBody enrollRusheeBody) {
+			
+	
+		
+		return null;
+	}
 
 }
