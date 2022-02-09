@@ -1,0 +1,39 @@
+server:
+  port: 8080
+  
+  
+management: 
+  endpoints: 
+    web: 
+      base-path: /actuator
+      exposure: 
+        include: health, info, prometheus, env, ping .
+        excluide: '"*"'
+        
+    
+
+
+spring:
+  application: 
+    name: enrollRushee
+  config: 
+    use-legacy-processing: true
+    
+  
+  datasource:
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    url: jdbc:mysql://127.0.0.1:3306/some-mysql
+    username: root
+    password: my-secret-pw
+  jpa:
+    database-platform: org.hibernate.dialect.MySQL8Dialect
+    properties: 
+      dialect:
+        storage_engine: innodb
+      hibernate: 
+        ddl-auto: update
+    generate-ddl: true
+    
+  
+
+

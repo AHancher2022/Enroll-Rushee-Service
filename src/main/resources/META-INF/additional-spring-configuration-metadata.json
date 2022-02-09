@@ -1,0 +1,42 @@
+{"properties": [
+  {
+    "name": "driver-class-name",
+    "type": "java.lang.String",
+    "description": "A description for 'driver-class-name'"
+  },
+  {
+    "name": "spring",
+    "type": "java.lang.String",
+    "description": "A description for 'spring'"
+  },
+  {
+    "name": "application",
+    "type": "java.lang.String",
+    "description": "A description for 'application'"
+  },
+  {
+    "name": "name",
+    "type": "java.lang.String",
+    "description": "A description for 'name'"
+  },
+  {
+    "name": "config",
+    "type": "java.lang.String",
+    "description": "A description for 'config'"
+  },
+  {
+    "name": "use-legacy-processing",
+    "type": "java.lang.String",
+    "description": "A description for 'use-legacy-processing'"
+  },
+  {
+    "name": "datasource",
+    "type": "java.lang.String",
+    "description": "A description for 'datasource'"
+  },
+  {
+    "name": "url",
+    "type": "java.lang.String",
+    "description": "A description for 'url'"
+  }
+]}
