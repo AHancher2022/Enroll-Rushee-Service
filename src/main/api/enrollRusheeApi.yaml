@@ -1,0 +1,91 @@
+openapi: 3.0.0
+servers:
+  # Added by API Auto Mocking Plugin
+  - description: SwaggerHub API Auto Mocking
+    url: https://virtserver.swaggerhub.com/AHancher2022/enrollRushee/1.0.0
+info:
+  description: This is a simple API
+  version: "1.0.0"
+  title: Simple Inventory API
+  contact:
+    email: you@your-company.com
+  license:
+    name: Apache 2.0
+    url: 'http://www.apache.org/licenses/LICENSE-2.0.html'
+tags:
+  - name: admins
+    description: Secured Admin-only calls
+  - name: developers
+    description: Operations available to regular developers
+paths:
+  /enroll-rushee:
+    post:
+      tags:
+        - developers
+      summary: Enrolls the Rushee
+      description: |
+        By passing in the appropriate options, you can search for
+        available inventory in the system
+      parameters:
+        - in: header
+          name: firstName
+          description: Pass the First name of the rushee to the data base.
+          required: true
+          schema:
+            type: string
+        - in: header
+          name: lastName
+          description: last name of the rushee
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: search results matching criteria
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/EnrollRusheeResponse'
+        '400':
+          description: bad input parameter
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/EnrollRusheeBody'
+        description: Inventory item to add
+    
+components:
+  schemas:
+    EnrollRusheeBody:
+      type: object
+      required:
+        - Age
+        - Major
+        - Hometown
+        - State
+      properties:
+        Age:
+          type: string
+          example: 18
+        Major:
+          type: string
+          example: Software Engineering
+        Hometown:
+          type: string
+          example: Vestavia Hills
+        State:
+          type: string
+          example: Georgia
+    EnrollRusheeResponse:
+      type: object
+      required:
+        - Response
+      properties:
+        Response:
+          type: string
+          example: successfully enrolled
+          
+    
