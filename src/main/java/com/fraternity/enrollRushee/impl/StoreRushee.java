@@ -14,15 +14,13 @@ public class StoreRushee {
 	@Autowired
 	private RusheeRepository rusheeRepository;
 	
-	@Autowired
-	Rushee rushee;
-	
 	/*
 	 * Takes in rushee information and converts it to the rushee object to be stored
 	 */
 	
 	public String takeInRusheeInformation(String firstName, String lastName, EnrollRusheeBody enrollRusheeBody) {
 		
+		Rushee rushee = new Rushee();
 		rushee.setFirstName(firstName);
 		rushee.setLastName(lastName);
 		rushee.setAge(enrollRusheeBody.getAge());
