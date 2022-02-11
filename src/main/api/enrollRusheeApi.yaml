@@ -13,15 +13,13 @@ info:
     name: Apache 2.0
     url: 'http://www.apache.org/licenses/LICENSE-2.0.html'
 tags:
-  - name: admins
-    description: Secured Admin-only calls
-  - name: developers
-    description: Operations available to regular developers
+  - name: rushee
+    description: Api that when the rushee enrolls, this will call.
 paths:
-  /enroll-rushee:
+  /rushee/enroll-rushee:
     post:
       tags:
-        - developers
+        - rushee
       summary: Enrolls the Rushee
       description: |
         By passing in the appropriate options, you can search for
@@ -41,7 +39,7 @@ paths:
             type: string
       responses:
         '200':
-          description: search results matching criteria
+          description: Successfully enrolled the rushee
           content:
             application/json:
               schema:
@@ -56,7 +54,40 @@ paths:
             schema:
               $ref: '#/components/schemas/EnrollRusheeBody'
         description: Inventory item to add
-    
+  /rushee/enroll-rushee-in-fraternity:
+    post:
+      tags:
+        - rushee
+      summary: move rushe to fraternity
+      description: This api will be called when a rushee accepts his bid.
+      parameters: 
+        - in: header
+          name: firstName
+          description: firstName of rushee to be enrolled
+          required: true
+          schema:
+            type: string
+        - in: header
+          name: lastName
+          description: LastName of rushee to be enrolled
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Successfully enrolled the rushee
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/EnrollRusheeInFraternityResponse'
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/EnrollRusheeInFraternityBody'
+        description: Inventory item to add
 components:
   schemas:
     EnrollRusheeBody:
@@ -66,6 +97,8 @@ components:
         - Major
         - Hometown
         - State
+        - AcceptBid
+        - Fraternity
       properties:
         Age:
           type: string
@@ -79,6 +112,13 @@ components:
         State:
           type: string
           example: Georgia
+        AcceptBid:
+          type: boolean
+          example: false
+        Fraternity:
+          type: string
+          example: Delta Chi
+          
     EnrollRusheeResponse:
       type: object
       required:
@@ -87,5 +127,23 @@ components:
         Response:
           type: string
           example: successfully enrolled
-          
-    
+    EnrollRusheeInFraternityBody:
+      type: object
+      required:
+        - AcceptBid
+        - Fraternity
+      properties:
+        AcceptBid:
+          type: boolean
+          example: false
+        Fraternity:
+          type: string
+          example: Delta Chi
+    EnrollRusheeInFraternityResponse:
+      type: object
+      required:
+        - Response
+      properties:
+        Response:
+          type: string
+          example: successfully enrolled in Fraternity

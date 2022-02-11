@@ -1,15 +1,19 @@
 package com.fraternity.enrollRushee.adapter;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 
-import com.enrollRushee.api.EnrollRusheeApi;
+import com.enrollRushee.api.RusheeApi;
 import com.enrollRushee.api.model.EnrollRusheeBody;
+import com.enrollRushee.api.model.EnrollRusheeInFraternityBody;
+import com.enrollRushee.api.model.EnrollRusheeInFraternityResponse;
 import com.enrollRushee.api.model.EnrollRusheeResponse;
 import com.fraternity.enrollRushee.impl.StoreRushee;
+import com.fraternity.enrollRushee.model.Rushee;
 
 /*
  * The purpose of this class is to implement the first part of the API which
@@ -17,7 +21,7 @@ import com.fraternity.enrollRushee.impl.StoreRushee;
  */
 
 @Controller
-public class EnrollRusheeAdapter implements EnrollRusheeApi {
+public class EnrollRusheeAdapter implements RusheeApi {
 	
 	@Autowired
 	StoreRushee storeRushee;
@@ -28,10 +32,21 @@ public class EnrollRusheeAdapter implements EnrollRusheeApi {
 	 */
 	
 	@Override
-	public ResponseEntity<List<EnrollRusheeResponse>> enrollRusheePost(String firstName, String lastName, EnrollRusheeBody enrollRusheeBody) {
-			storeRushee.takeInRusheeInformation(firstName, lastName, enrollRusheeBody);
-	
+	public ResponseEntity<List<EnrollRusheeResponse>> rusheeEnrollRusheePost(String firstName, String lastName, EnrollRusheeBody enrollRusheeBody) {
+		EnrollRusheeResponse enrollRusheeResponse = new EnrollRusheeResponse();
+		List<EnrollRusheeResponse> response = new ArrayList<>();
+		enrollRusheeResponse = storeRushee.takeInRusheeInformation(firstName, lastName, enrollRusheeBody);
+		response.add(enrollRusheeResponse);
 		
+		return (ResponseEntity<List<EnrollRusheeResponse>>) response;
+	}
+	
+	@Override
+	public ResponseEntity<List<EnrollRusheeInFraternityResponse>> rusheeEnrollRusheeInFraternityPost(String firstName, String lastName, EnrollRusheeInFraternityBody enrollRusheeInFraternityBody) {
+			List<Rushee> rushee = storeRushee.lookUpRushee(firstName, lastName);
+			
+			
+			
 		return null;
 	}
 
