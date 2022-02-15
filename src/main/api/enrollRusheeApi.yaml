@@ -13,60 +13,96 @@ info:
     name: Apache 2.0
     url: 'http://www.apache.org/licenses/LICENSE-2.0.html'
 tags:
-  - name: admins
-    description: Secured Admin-only calls
-  - name: developers
-    description: Operations available to regular developers
+  - name: rushee
+    description: Api that when the rushee enrolls, this will call.
 paths:
   /enroll-rushee:
     post:
       tags:
-        - developers
+        - rushee
       summary: Enrolls the Rushee
       description: |
         By passing in the appropriate options, you can search for
         available inventory in the system
       parameters:
         - in: header
-          name: firstName
-          description: Pass the First name of the rushee to the data base.
+          name: userName
+          description: This is the rushees Username and Password
           required: true
           schema:
             type: string
         - in: header
-          name: lastName
-          description: last name of the rushee
+          name: passWord
+          description: Consists of the password for the rushee
           required: true
           schema:
             type: string
       responses:
         '200':
-          description: search results matching criteria
-          content:
-            application/json:
-              schema:
-                type: array
-                items:
-                  $ref: '#/components/schemas/EnrollRusheeResponse'
+          description: Successfully enrolled the rushee
         '400':
-          description: bad input parameter
+          description: Was not able to enroll rushee
       requestBody:
         content:
           application/json:
             schema:
               $ref: '#/components/schemas/EnrollRusheeBody'
         description: Inventory item to add
-    
+  /enroll-rushee-in-fraternity:
+    post:
+      tags:
+        - rushee
+      summary: move rushee to fraternity
+      description: This api will be called when a rushee accepts his bid.
+      parameters: 
+        - in: header
+          name: firstName
+          description: firstName of rushee to be enrolled
+          required: true
+          schema:
+            type: string
+        - in: header
+          name: lastName
+          description: LastName of rushee to be enrolled
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Successfully enrolled the rushee
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/EnrollRusheeInFraternityResponse'
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/EnrollRusheeInFraternityBody'
+        description: Inventory item to add
 components:
   schemas:
     EnrollRusheeBody:
       type: object
       required:
+        - FirstName
+        - LastName
         - Age
         - Major
         - Hometown
         - State
+        - AcceptBid
+        - Fraternity
+        - CellPhoneNumber
       properties:
+        FirstName:
+          type: string
+          example: Chat
+        LastName:
+          type: string
+          example: Doe
         Age:
           type: string
           example: 18
@@ -79,13 +115,32 @@ components:
         State:
           type: string
           example: Georgia
-    EnrollRusheeResponse:
+        AcceptBid:
+          type: boolean
+          example: false
+        Fraternity:
+          type: string
+          example: Delta Chi
+        CellPhoneNumber:
+          type: string
+          example: 111-222-3333
+    EnrollRusheeInFraternityBody:
+      type: object
+      required:
+        - AcceptBid
+        - Fraternity
+      properties:
+        AcceptBid:
+          type: boolean
+          example: false
+        Fraternity:
+          type: string
+          example: Delta Chi
+    EnrollRusheeInFraternityResponse:
       type: object
       required:
         - Response
       properties:
         Response:
           type: string
-          example: successfully enrolled
-          
-    
+          example: successfully enrolled in Fraternity
