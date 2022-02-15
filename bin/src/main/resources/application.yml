@@ -34,15 +34,6 @@ spring:
         ddl-auto: update
     generate-ddl: true
     
-  security:
-    oauth2:
-      resourceserver:
-        jwt:
-          issuer-uri: https://loginValidator/api/
-auth0:
-  audience: https://loginValidator/api
-  
-    
   
 
 
